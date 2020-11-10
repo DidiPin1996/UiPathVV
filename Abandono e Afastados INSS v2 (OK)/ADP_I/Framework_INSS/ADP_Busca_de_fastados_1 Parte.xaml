@@ -1,0 +1,1114 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ADPBuscaAfastados" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Label_DadosPessoais" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="ADPDataNascimento" Type="InOutArgument(x:String)" />
+    <x:Property Name="ADPNomeMae" Type="InOutArgument(x:String)" />
+    <x:Property Name="Data_Brazil" Type="InOutArgument(x:String)" />
+    <x:Property Name="DateNow" Type="OutArgument(ui:GenericValue)" />
+    <x:Property Name="in_TransactionItem" Type="InOutArgument(ui:QueueItem)" />
+    <x:Property Name="Config" Type="InOutArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1278,15629</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Credentials.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+      <x:String>UiPath.Orchestrator.Client.Models</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Credentials.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="1238,15549" sap2010:WorkflowViewState.IdRef="Sequence_7">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Refrencia Linha&quot;).ToString]" Name="ContadorExcel" />
+      <Variable x:TypeArguments="x:String" Default="[Config(&quot;str_Nome_Planilha&quot;).ToString]" Name="NomeArquivo" />
+      <Variable x:TypeArguments="x:String" Default="[Config(&quot;Str_Diretorio_ADPExpert&quot;).ToString]" Name="DiretorioArquivo" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel application scope" sap:VirtualizedContainerService.HintSize="1216,15425" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[DiretorioArquivo+ NomeArquivo]">
+      <ui:ExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1202,15316" sap2010:WorkflowViewState.IdRef="Sequence_47">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Get Now" sap:VirtualizedContainerService.HintSize="1180,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign.To>
+                <OutArgument x:TypeArguments="ui:GenericValue">[DateNow]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="ui:GenericValue">[datetime.Now]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Convert to Brazil Date" sap:VirtualizedContainerService.HintSize="1180,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[Data_Brazil]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[convert.ToDateTime(Now).ToString("dd/MM/yyyy")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:ExcelWriteCell Cell="[&quot;AT&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="1180,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="Plan1" Text="[Data_Brazil]" />
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1180,14865" sap2010:WorkflowViewState.IdRef="Sequence_49">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check Radio Matrícula" sap:VirtualizedContainerService.HintSize="1158,106" sap2010:WorkflowViewState.IdRef="Check_1">
+                <ui:Check.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="87c4901d1ff1235d48c24f240b6a0d4d" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl tableCol='3' tag='INPUT' /&gt;" TimeoutMS="2000" WaitForReady="COMPLETE" />
+                </ui:Check.Target>
+              </ui:Check>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Input Iniciado com:" EmptyField="True" sap:VirtualizedContainerService.HintSize="1158,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem.SpecificContent(&quot;Matrícula&quot;).ToString]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4467870fd1c6e79b5cc466f018646501" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cod' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Flag Play" sap:VirtualizedContainerService.HintSize="1158,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9b5caa990d4e25e4b198b46a040259e7" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Selecionar um código e prosseguir.' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+              <Delay mva:VisualBasic.Settings="{x:Null}" sap2010:Annotation.AnnotationText="delay 3 sec" DisplayName="Delay 3 seconds" Duration="00:00:03" sap:VirtualizedContainerService.HintSize="1158,49" sap2010:WorkflowViewState.IdRef="Delay_1">
+                <TextExpression.Namespaces>
+                  <sco:Collection x:TypeArguments="x:String">
+                    <x:String>System.Activities</x:String>
+                    <x:String>System.Activities.Statements</x:String>
+                    <x:String>System.Activities.Expressions</x:String>
+                    <x:String>System.Activities.Validation</x:String>
+                    <x:String>System.Activities.XamlIntegration</x:String>
+                    <x:String>Microsoft.VisualBasic.Activities</x:String>
+                    <x:String>System</x:String>
+                    <x:String>System.Collections.Generic</x:String>
+                    <x:String>System.Data</x:String>
+                    <x:String>System.Diagnostics</x:String>
+                    <x:String>System.IO</x:String>
+                    <x:String>System.Linq</x:String>
+                    <x:String>System.Management.Automation</x:String>
+                    <x:String>System.Net.Mail</x:String>
+                    <x:String>System.Xml</x:String>
+                    <x:String>System.Xml.Linq</x:String>
+                    <x:String>UiPath.Library</x:String>
+                    <x:String>System.Windows.Markup</x:String>
+                  </sco:Collection>
+                </TextExpression.Namespaces>
+                <TextExpression.References>
+                  <sco:Collection x:TypeArguments="AssemblyReference">
+                    <AssemblyReference>System.Activities</AssemblyReference>
+                    <AssemblyReference>mscorlib</AssemblyReference>
+                    <AssemblyReference>System.Data</AssemblyReference>
+                    <AssemblyReference>System</AssemblyReference>
+                    <AssemblyReference>System.Core</AssemblyReference>
+                    <AssemblyReference>System.Management.Automation</AssemblyReference>
+                    <AssemblyReference>System.Xml</AssemblyReference>
+                    <AssemblyReference>System.Xml.Linq</AssemblyReference>
+                    <AssemblyReference>UiPath.Library</AssemblyReference>
+                    <AssemblyReference>PresentationFramework</AssemblyReference>
+                    <AssemblyReference>WindowsBase</AssemblyReference>
+                    <AssemblyReference>PresentationCore</AssemblyReference>
+                    <AssemblyReference>System.Xaml</AssemblyReference>
+                  </sco:Collection>
+                </TextExpression.References>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <sap2010:WorkflowViewState.ViewStateManager>
+                  <sap2010:ViewStateManager>
+                    <sap2010:ViewStateData sap:VirtualizedContainerService.HintSize="200,22" Id="Delay_1" />
+                  </sap2010:ViewStateManager>
+                </sap2010:WorkflowViewState.ViewStateManager>
+              </Delay>
+              <ui:UiElementExists DisplayName="Element Exists 'Dados Pessoais '" Exists="[Label_DadosPessoais]" sap:VirtualizedContainerService.HintSize="1158,106" sap2010:WorkflowViewState.IdRef="UiElementExists_5">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="729e43ef7fba1f6bcae94cf0250aebca" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Dados pessoais' tag='A' /&gt;" TimeoutMS="10000" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+              <If Condition="[Label_DadosPessoais = True]" DisplayName="Matricula Existe?" sap:VirtualizedContainerService.HintSize="1158,14040" sap2010:WorkflowViewState.IdRef="If_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Sequence DisplayName="Sequence Busca Informações" sap:VirtualizedContainerService.HintSize="819,13893" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="ADPCpf" />
+                      <Variable x:TypeArguments="x:String" Name="ADPPis" />
+                      <Variable x:TypeArguments="x:String" Name="ADPCep" />
+                      <Variable x:TypeArguments="x:String" Name="ADPNumero" />
+                      <Variable x:TypeArguments="x:String" Name="ADPComplemento" />
+                      <Variable x:TypeArguments="x:String" Name="ADPBairro" />
+                      <Variable x:TypeArguments="x:String" Name="ADPMunicipio" />
+                      <Variable x:TypeArguments="x:String" Name="ADPFoneDDD1" />
+                      <Variable x:TypeArguments="x:String" Name="ADPFone1" />
+                      <Variable x:TypeArguments="x:String" Name="ADPFoneDDD2" />
+                      <Variable x:TypeArguments="x:String" Name="ADPFone2" />
+                      <Variable x:TypeArguments="x:String" Name="ADPEmail" />
+                      <Variable x:TypeArguments="x:String" Name="ADPEmailOpcional" />
+                      <Variable x:TypeArguments="x:String" Name="ADPEndereco" />
+                      <Variable x:TypeArguments="s:String[]" Name="Split" />
+                      <Variable x:TypeArguments="x:String" Name="ADPMatriculaGestor" />
+                      <Variable x:TypeArguments="x:String" Name="ADPNomeGestor" />
+                      <Variable x:TypeArguments="x:String" Name="ADPEmailGestor" />
+                      <Variable x:TypeArguments="x:String" Name="ADPEmailGestorOpcional" />
+                      <Variable x:TypeArguments="x:String" Name="ADPDataRetorno" />
+                      <Variable x:TypeArguments="x:String" Name="ADPMotivoAfastamento" />
+                      <Variable x:TypeArguments="x:Boolean" Name="ADPLabelDataPericia" />
+                      <Variable x:TypeArguments="x:String" Name="ADPCid" />
+                      <Variable x:TypeArguments="x:String" Name="ADPObservacao" />
+                      <Variable x:TypeArguments="x:String" Name="ADPDataAfastamento" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Dados Pessoais" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0d53b28eff3cf3e87cfd74cb7b442e47" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Dados pessoais' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Data de Nascimento" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_1">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6401ddf8c78e15a95094b896aff0ebe1" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_datnasc' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPDataNascimento]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="Remover Barra" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPDataNascimento]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ADPDataNascimento.Replace("/","").Trim]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;T&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="Plan1" Text="[ADPDataNascimento]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Nome da Mãe" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_2">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f7fb6536bd99db294ee8bcf8d8ad76d8" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_nomemae' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPNomeMae]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;S&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="Plan1" Text="[ADPNomeMae]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Aba Doc" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="54e202e27269644bcc56a5a1ad51e4cf" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Doc.' idx='1' tag='A' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get CPF" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7f870956b5369ecf16c10215c5d23112" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cpf' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPCpf]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="Remove No Numeric Charecters" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPCpf]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ADPCpf.Replace("-","")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;U&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_4" SheetName="Plan1" Text="[ADPCpf.Trim]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get PIS" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_4">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2ac819a0ac94c6c5954584c28b66298f" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_pis' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPPis]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="Replace PIS" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPPis]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ADPPis.Replace("-","").Trim]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;R&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_5" SheetName="Plan1" Text="[ADPPis]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Aba End" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a5c4d74a3009fa343db92a89636511b5" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='End.' css-selector='body&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;center&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;a' idx='1' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get CEP" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_5">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b9e6ce65a0c0504f594e3914677ed87d" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cep' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPCep]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="Remove ." sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPCep]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ADPCep.Replace(".","")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Remove -" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPCep]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ADPCep.Replace("-","")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;V&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_6" SheetName="Plan1" Text="[ADPCep.Trim]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Endereço" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_6">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ad8bc7248e05337b7c03922248a9975f" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cep_nome' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPEndereco]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;W&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_7" SheetName="Plan1" Text="[ADPEndereco]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Numero" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_7">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f6c68fd8338431b84e8b511ce2f9ead" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cep_numero' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPNumero]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;X&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_8" SheetName="Plan1" Text="[ADPNumero]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Complemento" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_8">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ecb330c7bbeb9124b88f26cc919bf7d6" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cep_complemento' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPComplemento]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;Y&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_9" SheetName="Plan1" Text="[ADPComplemento]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Bairro" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_9">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f44e06cec56ffccd8b15d50b1e68978c" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cep_bairro' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPBairro]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;Z&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_10" SheetName="Plan1" Text="[ADPBairro]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Município" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_10">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3597577816d039812ad41c685c5ff156" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_dcr_cep_munic' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPMunicipio]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="s:String[]">[Split]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="s:String[]">[ADPMunicipio.Split("("c)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;AA&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_11" SheetName="Plan1" Text="[Split(0).Trim]" />
+                    <ui:ExcelWriteCell Cell="[&quot;AB&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_12" SheetName="Plan1" Text="[&quot;(&quot;+Split(1).Trim]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Fone 1 DDD" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_11">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f87327b1ee3ae08a8ce2da719d9fac25" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_ddd1' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPFoneDDD1]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Fone 1" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_12">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="84f375f423f4d6caa1b4791bd7b08fb3" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_telef' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPFone1]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="DDD + Fone1" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPFone1]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["("+ADPFoneDDD1+")"+ADPFone1]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;AE&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_13" SheetName="Plan1" Text="[ADPFone1]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Fone 2 DDD" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_13">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d843552b0510615bc5f5f39b5bd8b745" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_dddtelefAlternativo' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPFoneDDD2]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Fone 2" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_14">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d1610a45f2b039ddb77ffca3347ef337" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_telefAlternativo' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPFone2]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign DisplayName="DDD + Fone2" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[ADPFone2]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["("+ADPFoneDDD2+")"+ADPFone2]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExcelWriteCell Cell="[&quot;AF&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_14" SheetName="Plan1" Text="[ADPFone2]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get E-mail" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_15">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="50ddd17a8fbc285dccfc9f9a242594e0" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_email' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPEmail]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AC&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_15" SheetName="Plan1" Text="[ADPEmail]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get E-mail Opcional" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_16">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0a0c9e3b5f84da81e6f6628df54f15d2" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_emailAlternativo' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPEmailOpcional]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AD&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_16" SheetName="Plan1" Text="[ADPEmailOpcional]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Cancelar" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3654baf7b3c8d238f22366a3393b6cef" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='CANCELAR_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Input Iniciado com:" EmptyField="True" sap:VirtualizedContainerService.HintSize="797,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem.SpecificContent(&quot;Matrícula&quot;).ToString]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2c2bd23c513ccd1e7819cd2ff48089e5" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cod' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Flag Play" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="aac158366a1e2271f13b34a7815ffe19" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='Selecionar um código e prosseguir.' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Registro de Emprego" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="78936d10db425982982cd10c10328ed1" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Registro de Emprego' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Aba Chefia" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9ac52615485eba13962fec9450ac4d47" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Chefia' idx='1' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Matricula Gestor" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_17">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b6c7aa14a1f10236b1f73e60d8cad1d3" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_matricula_chefe' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPMatriculaGestor]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AP&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_17" SheetName="Plan1" Text="[ADPMatriculaGestor]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Nome Gestor" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="GetValue_18">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="381cd5da80e9b32dad716107655a5400" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_dcr_regemp' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPNomeGestor]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AQ&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="797,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_18" SheetName="Plan1" Text="[ADPNomeGestor]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Cancelar" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c7081daf4fdb131d1c2a0acab071e7b3" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='CANCELAR_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <Delay mva:VisualBasic.Settings="{x:Null}" sap2010:Annotation.AnnotationText="delay 3 sec" DisplayName="Delay 3 seconds" Duration="00:00:03" sap:VirtualizedContainerService.HintSize="797,49" sap2010:WorkflowViewState.IdRef="Delay_1">
+                      <TextExpression.Namespaces>
+                        <sco:Collection x:TypeArguments="x:String">
+                          <x:String>System.Activities</x:String>
+                          <x:String>System.Activities.Statements</x:String>
+                          <x:String>System.Activities.Expressions</x:String>
+                          <x:String>System.Activities.Validation</x:String>
+                          <x:String>System.Activities.XamlIntegration</x:String>
+                          <x:String>Microsoft.VisualBasic.Activities</x:String>
+                          <x:String>System</x:String>
+                          <x:String>System.Collections.Generic</x:String>
+                          <x:String>System.Data</x:String>
+                          <x:String>System.Diagnostics</x:String>
+                          <x:String>System.IO</x:String>
+                          <x:String>System.Linq</x:String>
+                          <x:String>System.Management.Automation</x:String>
+                          <x:String>System.Net.Mail</x:String>
+                          <x:String>System.Xml</x:String>
+                          <x:String>System.Xml.Linq</x:String>
+                          <x:String>UiPath.Library</x:String>
+                          <x:String>System.Windows.Markup</x:String>
+                        </sco:Collection>
+                      </TextExpression.Namespaces>
+                      <TextExpression.References>
+                        <sco:Collection x:TypeArguments="AssemblyReference">
+                          <AssemblyReference>System.Activities</AssemblyReference>
+                          <AssemblyReference>mscorlib</AssemblyReference>
+                          <AssemblyReference>System.Data</AssemblyReference>
+                          <AssemblyReference>System</AssemblyReference>
+                          <AssemblyReference>System.Core</AssemblyReference>
+                          <AssemblyReference>System.Management.Automation</AssemblyReference>
+                          <AssemblyReference>System.Xml</AssemblyReference>
+                          <AssemblyReference>System.Xml.Linq</AssemblyReference>
+                          <AssemblyReference>UiPath.Library</AssemblyReference>
+                          <AssemblyReference>PresentationFramework</AssemblyReference>
+                          <AssemblyReference>WindowsBase</AssemblyReference>
+                          <AssemblyReference>PresentationCore</AssemblyReference>
+                          <AssemblyReference>System.Xaml</AssemblyReference>
+                        </sco:Collection>
+                      </TextExpression.References>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <sap2010:WorkflowViewState.ViewStateManager>
+                        <sap2010:ViewStateManager>
+                          <sap2010:ViewStateData sap:VirtualizedContainerService.HintSize="200,22" Id="Delay_1" />
+                        </sap2010:ViewStateManager>
+                      </sap2010:WorkflowViewState.ViewStateManager>
+                    </Delay>
+                    <If Condition="[in_TransactionItem.SpecificContent(&quot;Empresa&quot;).ToString = &quot;029&quot; or in_TransactionItem.SpecificContent(&quot;Empresa&quot;).ToString = &quot;024&quot;]" DisplayName="Empresa 029" sap:VirtualizedContainerService.HintSize="797,1389" sap2010:WorkflowViewState.IdRef="If_4">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <ui:ExcelWriteCell Cell="[&quot;BH&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_33" SheetName="Plan1" Text="Matricula Gestor não Encontrada" />
+                      </If.Then>
+                      <If.Else>
+                        <Sequence sap:VirtualizedContainerService.HintSize="356,1242" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Input Matricula Gestor" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="False" Text="[ADPMatriculaGestor]">
+                            <ui:TypeInto.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4467870fd1c6e79b5cc466f018646501" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cod' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                            </ui:TypeInto.Target>
+                          </ui:TypeInto>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Play" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_10" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d3ee2b90c1b7ceff563a39fb45ba1aab" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='Selecionar um código e prosseguir.' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Dados Pessoais" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_11" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0d53b28eff3cf3e87cfd74cb7b442e47" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='Dados pessoais' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Aba End" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_12" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f5cb0b9ed368c805f5cea78881fd20c7" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='End.' idx='1' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get E-mail Gestor" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_19">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="50ddd17a8fbc285dccfc9f9a242594e0" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_email' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="x:String">[ADPEmailGestor]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AR&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_20" SheetName="Plan1" Text="[ADPEmailGestor]" />
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get E-mail Gestor Opcional" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_20">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0a0c9e3b5f84da81e6f6628df54f15d2" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_emailAlternativo' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="x:String">[ADPEmailGestorOpcional]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AS&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_21" SheetName="Plan1" Text="[ADPEmailGestorOpcional]" />
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Painel do Cliente" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_14" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="496f2db80d7c5cbb56645eb891183532" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='Painel do Cliente_navItem_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Afastar Empregado" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_15" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a71a7dd02347f824e4437dd758249544" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl parentid='painel_icones' tag='IMG' isleaf='1' idx='3' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Input Matricula Funcionario Campo Iniciado em" EmptyField="True" sap:VirtualizedContainerService.HintSize="755,134" sap2010:WorkflowViewState.IdRef="TypeInto_4" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem.SpecificContent(&quot;Matrícula&quot;).ToString]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a2f912477c923270049cdf43c9d8bf1a" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cod' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Flag Pesquisar" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_16" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="aac158366a1e2271f13b34a7815ffe19" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='Selecionar um código e prosseguir.' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Data do Afastamento" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="GetValue_32">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="22f6ccd6d68a11d3d0dd7053556b329d" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='31/01/2016' tag='A' tableCol='1' tableRow='1' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPDataAfastamento]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AG&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_22" SheetName="Plan1" Text="[ADPDataAfastamento]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Data de Retorno" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="GetValue_21">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="76bf76c2cb0c65e58808e134821dc56f" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl idx='4' tag='TABLE' /&gt;&lt;webctrl isleaf='1' tag='TD' tableCol='2' tableRow='1' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPDataRetorno]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AH&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_23" SheetName="Plan1" Text="[ADPDataRetorno]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Motivo de Afastamento" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="GetValue_22">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="053af4ea41757cae71faab4158ce90f9" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl idx='4' tag='TABLE' /&gt;&lt;webctrl idx='1' isleaf='1' tableCol='6' tag='TD' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPMotivoAfastamento]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AI&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_24" SheetName="Plan1" Text="[ADPMotivoAfastamento]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Campo Pericia" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_17" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7fa33db48b24ddd23889cfbe0fde38b8" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl idx='4' tag='TABLE' /&gt;&lt;webctrl idx='1' tableCol='7' tag='TD' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:UiElementExists DisplayName="Element Exists Data Pericia" Exists="[ADPLabelDataPericia]" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
+                      <ui:UiElementExists.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="68c0f7138dc9af999bcee4f3e6087b64" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='*' tag='A' css-selector='body&amp;gt;form&amp;gt;div&amp;gt;center&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;a' omit:tableCol='1' omit:tableRow='2' /&gt;" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                      </ui:UiElementExists.Target>
+                    </ui:UiElementExists>
+                    <If Condition="[ADPLabelDataPericia = True]" DisplayName="If Data Pericia Exists" sap:VirtualizedContainerService.HintSize="797,2003" sap2010:WorkflowViewState.IdRef="If_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="376,1855" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="ui:GenericValue" Name="ADPDataPericia" />
+                            <Variable x:TypeArguments="ui:GenericValue" Name="ADPProtocoloAgendamento" />
+                            <Variable x:TypeArguments="ui:GenericValue" Name="ADPResultado" />
+                            <Variable x:TypeArguments="ui:GenericValue" Name="ADPNumeroBeneficio" />
+                            <Variable x:TypeArguments="ui:GenericValue" Name="ADPPrevisaoTerminoBeneficio" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'INPUT  rad_ordem'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Check_2">
+                            <ui:Check.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ebb5a956240870d06d709763932790be" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl tableCol='2' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Check.Target>
+                          </ui:Check>
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Data Pericia" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_25">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="df282e54ea067f40118f9851bb303112" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='16/08/2018' tag='A' tableCol='1' tableRow='2' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[ADPDataPericia]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AJ&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_25" SheetName="Plan1" Text="[ADPDataPericia]" />
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Protoclo de Agendamento" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_26">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2ec1cffbfa79282b2fd3e6e916884d5f" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl idx='3' tag='TABLE' /&gt;&lt;webctrl tableCol='2' tableRow='2' tag='TD' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[ADPProtocoloAgendamento]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AK&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_26" SheetName="Plan1" Text="[ADPProtocoloAgendamento]" />
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Resultado" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_27">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="387c9b1d9a2fcf7350643e0abb9c8362" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl aaname='* - *' tableRow='2' tag='DIV' tableCol='3' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[ADPResultado]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AM&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_27" SheetName="Plan1" Text="[ADPResultado]" />
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Numero do Beneficio" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_28">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ee65777812132ea458093c5d8a657977" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='5476292302' tableRow='2' tag='DIV' tableCol='4' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[ADPNumeroBeneficio]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AL&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_28" SheetName="Plan1" Text="[ADPNumeroBeneficio]" />
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Previsão de Termino do Beneficio" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_29">
+                            <ui:GetValue.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="368968cce9111db73014e9f1d721b7e5" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl idx='3' tag='TABLE' /&gt;&lt;webctrl tableCol='5' tableRow='2' tag='TD' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:GetValue.Target>
+                            <ui:GetValue.Value>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[ADPPrevisaoTerminoBeneficio]</OutArgument>
+                            </ui:GetValue.Value>
+                          </ui:GetValue>
+                          <ui:ExcelWriteCell Cell="[&quot;AN&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_29" SheetName="Plan1" Text="[ADPPrevisaoTerminoBeneficio]" />
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Anterior" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_19" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1d7866c0ee91f860dfd00d1cd2e3a2dd" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='ANT_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Anterior" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_20" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="334ce0ee7f9ed7cd10954055e23448ea" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='ANT_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence sap:VirtualizedContainerService.HintSize="376,344" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Anterior" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_21" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="562b71ba5daf553255851cffb19814f4" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='ANT_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Anterior" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_29" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition Position="Center">
+                                <ui:CursorPosition.OffsetX>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetX>
+                                <ui:CursorPosition.OffsetY>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:CursorPosition.OffsetY>
+                              </ui:CursorPosition>
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="334ce0ee7f9ed7cd10954055e23448ea" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='ANT_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Input MatriculaFuncionario Campo Iniciado com" EmptyField="True" sap:VirtualizedContainerService.HintSize="755,134" sap2010:WorkflowViewState.IdRef="TypeInto_5" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem.SpecificContent(&quot;Matrícula&quot;).ToString]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4847fb2c2e6c23730eb93c993bdb1ce2" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_cod' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Flag" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_22" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4982306f264d18e964cf15746ba37654" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='Selecionar um código e prosseguir.' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Data de Afastamento" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_23" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="cc870433a543bb88a93d72fb94f6f7a3" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl omit:aaname='28/07/2003' tag='A' tableCol='1' tableRow='1' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get CID" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="GetValue_30">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9b7ad82fe9d7aa168e41923851559551" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='tex_pfc_nom' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPCid]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;BI&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_30" SheetName="Plan1" Text="[ADPCid]" />
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Observações" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="GetValue_31">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="37e951d91ab5507eb98dd7f8a5df586d" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMPROG' tag='IFRAME' /&gt;&lt;webctrl id='vt_texto' tag='TEXTAREA' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[ADPObservacao]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <ui:ExcelWriteCell Cell="[&quot;AO&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_31" SheetName="Plan1" Text="[ADPObservacao]" />
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Cancelar" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_13" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c7081daf4fdb131d1c2a0acab071e7b3" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='CANCELAR_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Anterior" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_24" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6501c48483ed1dc7eb573e9742b10529" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='BMBUTTONS' tag='IFRAME' /&gt;&lt;webctrl id='ANT_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Painel do Cliente" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_26" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="496f2db80d7c5cbb56645eb891183532" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl id='Painel do Cliente_navItem_label' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Alterar Dados Pessoais" sap:VirtualizedContainerService.HintSize="755,106" sap2010:WorkflowViewState.IdRef="Click_27" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ecca9ca57f759739541f53039f24a445" Selector="&lt;html app='chrome.exe' title='eXpert' /&gt;&lt;webctrl name='ADP' tag='FRAME' /&gt;&lt;webctrl parentid='painel_icones' src='/expert/imagem/bpo_dadospes.gif' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <ui:ExcelWriteCell sap2010:Annotation.AnnotationText="Matricula Não Encontrada" Cell="[&quot;BH&quot;+ ContadorExcel]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="314,114" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_34" SheetName="Plan1" Text="Matricula não encontrada">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ExcelWriteCell>
+                </If.Else>
+              </If>
+            </Sequence>
+          </Sequence>
+        </ActivityAction>
+      </ui:ExcelApplicationScope.Body>
+    </ui:ExcelApplicationScope>
+  </Sequence>
+</Activity>
